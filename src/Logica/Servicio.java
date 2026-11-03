@@ -16,11 +16,11 @@ public class Servicio {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	@Override
-	public String toString() { //No estoy segura si tiene que ser de una forma especifica.
-	}
-	
+	//ToString de Servicio (Aporte de Keishiro)
+    @Override
+    public String toString(){
+        return "Servicio " + this.nombre;
+    }
 	
 	
 
