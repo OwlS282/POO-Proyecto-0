@@ -7,14 +7,14 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
-import jakarta.mail.Authenticator;
-import jakarta.mail.Message;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-import java.time.format.DateTimeFormatter;
+//import jakarta.mail.Authenticator;
+//import jakarta.mail.Message;
+//import jakarta.mail.PasswordAuthentication;
+//import jakarta.mail.Session;
+//import jakarta.mail.Transport;
+//import jakarta.mail.internet.InternetAddress;
+//import jakarta.mail.internet.MimeMessage;
+//import java.time.format.DateTimeFormatter;
 
 import Logica.Cita;
 import Logica.Cliente;
@@ -27,6 +27,7 @@ public class Barberia implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+    private int clientLastId;
 
 	private final static String dataFileName = "DataBarberia.dat";
 
@@ -48,6 +49,7 @@ public class Barberia implements Serializable {
         this.citas = new HashMap<>();
         this.clientes = new HashMap<>();
         this.espera = new ArrayDeque<>();
+        this.clientLastId = 0;
     }
 
     public static Barberia getInstance(){
@@ -73,12 +75,13 @@ public class Barberia implements Serializable {
     }
 
     public Cliente crearCliente(String nombre, String tel, String email) throws Exception {
-        String id = Integer.toString(this.clientes.size() + 1);
+        String id = Integer.toString(clientLastId + 1);
         if (this.clientes.containsKey(id)){
             throw new Exception("ID de cliente ya existente.");
         }
-        Cliente c = new Cliente(id, nombre, email, tel);
+        Cliente c = new Cliente(id, nombre, tel, email);
         this.clientes.put(id, c);
+        this.clientLastId++;
         return c;
     }
     public Cliente consultarCliente(String id) throws Exception {
@@ -101,7 +104,7 @@ public class Barberia implements Serializable {
         return true;
     }
     public ArrayList<Cliente> getListaClientes(){
-        return (ArrayList<Cliente>)this.clientes.values();
+        return new ArrayList<Cliente>(this.clientes.values());
     }
 
     public Servicio crearServicio(String nombre) throws Exception {
@@ -140,7 +143,7 @@ public class Barberia implements Serializable {
         return true;
     }
     public ArrayList<Servicio> getListaServicio() {
-        return (ArrayList<Servicio>)this.servicios.values();
+        return new ArrayList<Servicio>(this.servicios.values());
     }
 
     public Cita crearCita(String idCliente, Servicio servicio, LocalDateTime fechaHora) throws Exception {
@@ -187,66 +190,66 @@ public class Barberia implements Serializable {
         return true;
     }
     
-    public boolean enviarNotificacion(LocalDateTime fechaHora) throws Exception {
-    	// Busca la cita en el mapa, si no existe, consultarCita lanza una excepción.
-        Cita cita = this.consultarCita(fechaHora);
-        
-        /*
-        // me parece innecesario 
-        if (cita.getEstado() == EstadoCita.CONFIRMADA) {
-            throw new Exception("La cita ya está confirmada.");
-        }
-        */
-        
-        // Properties es un diccionario de configuración (clave -> valor) para la conexión.
-        Properties props = new Properties();
-        props.put("mail.smtp.auth", "true");              // el servidor exige usuario y clave
-        props.put("mail.smtp.starttls.enable", "true");   // cifra la conexión (STARTTLS)
-        props.put("mail.smtp.host", "smtp.gmail.com");    // servidor de correo saliente de Gmail
-        props.put("mail.smtp.port", "587");               // puerto de Gmail para STARTTLS
-        
-        
-
-        // Session representa la "sesión de correo": junta la configuración y las credenciales.
-        // El Authenticator es quien entrega el usuario y la clave cuando el servidor las pide.
-        Session sesion = Session.getInstance(props, new Authenticator() {
-            @Override
-            protected PasswordAuthentication getPasswordAuthentication() {
-                // Usuario (correo de la barbería) y la contraseña de aplicación de Gmail.
-                return new PasswordAuthentication(CORREO_LOCAL, CLAVE_CORREO);
-            }
-        });
-
-        // Convierte la fecha de la cita en texto legible, por ejemplo "07/11/2026 a las 10:00".
-        // Las comillas simples en 'a las' hacen que ese texto se escriba tal cual.
-        String fecha = cita.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy 'a las' HH:mm"));        
-        
-        // Crea un mensaje vacío asociado a la sesión.
-        Message mensaje = new MimeMessage(sesion);
-        
-        // Remitente: la cuenta de la barbería.
-        mensaje.setFrom(new InternetAddress(CORREO_LOCAL));
-        
-        // Destinatario: el email del cliente de la cita.
-        // parse() convierte el texto en un arreglo de direcciones válidas.
-        mensaje.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse(cita.getCliente().getEmail()));
-        
-        // Asunto del correo.
-        mensaje.setSubject("Confirmación de cita");
-        
-        // Cuerpo del correo: saludo con el nombre, la fecha y la instrucción de confirmar.
-        // \n\n son dos saltos de línea.
-        mensaje.setText("Hola " + cita.getCliente().getNombre() + ",\n\n"
-                + "Tiene una cita programada para el " + fecha + ".\n"
-                + "Por favor comuníquese con el local para confirmarla.");
-
-        // Aquí se hace el envío real: se conecta a Gmail, se autentica y manda el mensaje.
-        // Si falla (sin internet, clave incorrecta, etc.), lanza una excepción.
-        Transport.send(mensaje);
-        // Si llegó hasta aquí sin excepción, el envío fue exitoso.
-        return true;
-    }
+//    public boolean enviarNotificacion(LocalDateTime fechaHora) throws Exception {
+//    	// Busca la cita en el mapa, si no existe, consultarCita lanza una excepción.
+//        Cita cita = this.consultarCita(fechaHora);
+//
+//        /*
+//        // me parece innecesario
+//        if (cita.getEstado() == EstadoCita.CONFIRMADA) {
+//            throw new Exception("La cita ya está confirmada.");
+//        }
+//        */
+//
+//        // Properties es un diccionario de configuración (clave -> valor) para la conexión.
+//        Properties props = new Properties();
+//        props.put("mail.smtp.auth", "true");              // el servidor exige usuario y clave
+//        props.put("mail.smtp.starttls.enable", "true");   // cifra la conexión (STARTTLS)
+//        props.put("mail.smtp.host", "smtp.gmail.com");    // servidor de correo saliente de Gmail
+//        props.put("mail.smtp.port", "587");               // puerto de Gmail para STARTTLS
+//
+//
+//
+//        // Session representa la "sesión de correo": junta la configuración y las credenciales.
+//        // El Authenticator es quien entrega el usuario y la clave cuando el servidor las pide.
+//        Session sesion = Session.getInstance(props, new Authenticator() {
+//            @Override
+//            protected PasswordAuthentication getPasswordAuthentication() {
+//                // Usuario (correo de la barbería) y la contraseña de aplicación de Gmail.
+//                return new PasswordAuthentication(CORREO_LOCAL, CLAVE_CORREO);
+//            }
+//        });
+//
+//        // Convierte la fecha de la cita en texto legible, por ejemplo "07/11/2026 a las 10:00".
+//        // Las comillas simples en 'a las' hacen que ese texto se escriba tal cual.
+//        String fecha = cita.getFechaHora().format(DateTimeFormatter.ofPattern("dd/MM/yyyy 'a las' HH:mm"));
+//
+//        // Crea un mensaje vacío asociado a la sesión.
+//        Message mensaje = new MimeMessage(sesion);
+//
+//        // Remitente: la cuenta de la barbería.
+//        mensaje.setFrom(new InternetAddress(CORREO_LOCAL));
+//
+//        // Destinatario: el email del cliente de la cita.
+//        // parse() convierte el texto en un arreglo de direcciones válidas.
+//        mensaje.setRecipients(Message.RecipientType.TO,
+//                InternetAddress.parse(cita.getCliente().getEmail()));
+//
+//        // Asunto del correo.
+//        mensaje.setSubject("Confirmación de cita");
+//
+//        // Cuerpo del correo: saludo con el nombre, la fecha y la instrucción de confirmar.
+//        // \n\n son dos saltos de línea.
+//        mensaje.setText("Hola " + cita.getCliente().getNombre() + ",\n\n"
+//                + "Tiene una cita programada para el " + fecha + ".\n"
+//                + "Por favor comuníquese con el local para confirmarla.");
+//
+//        // Aquí se hace el envío real: se conecta a Gmail, se autentica y manda el mensaje.
+//        // Si falla (sin internet, clave incorrecta, etc.), lanza una excepción.
+//        Transport.send(mensaje);
+//        // Si llegó hasta aquí sin excepción, el envío fue exitoso.
+//        return true;
+//    }
     
     public ArrayList<Cita> enviarNotificacionesConfirmacion() throws Exception {
         // Fecha de mañana: hoy más un día.

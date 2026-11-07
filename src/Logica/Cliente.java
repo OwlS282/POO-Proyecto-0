@@ -35,13 +35,15 @@ public class Cliente implements Serializable {
 		
 	//Verificación (Aportes de Keishiro).
 	public boolean validarEmail(String email){
-	     Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+		if (email == null) { return false; }
+	     Pattern p = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}$", Pattern.CASE_INSENSITIVE);
 	     Matcher m = p.matcher(email);
 	     return m.matches();
 	}
 		 
 	public boolean validarTelefono(String telefono){
-	     Pattern p = Pattern.compile("^[0-9]{4}[-|\\s]?[0-9]{4}$", Pattern.CASE_INSENSITIVE);
+		if (telefono == null) { return false; }
+	     Pattern p = Pattern.compile("^[0-9]{4}[-\\s]?[0-9]{4}$");
 	     Matcher m = p.matcher(telefono);
 	     return m.matches();
 	}
