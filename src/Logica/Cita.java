@@ -1,24 +1,32 @@
 package Logica;
 
-public class Cita 
-{
-	private Integer fechaHora;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+public class Cita implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private LocalDateTime fechaHora;
 	private Servicio servicio;
 	private Cliente cliente;
 	private EstadoCita estado;
 	
 	// Constructor. 
-	public Cita(Integer fechaHora, Servicio servicio, Cliente cliente) {
+	public Cita(LocalDateTime fechaHora, Servicio servicio, Cliente cliente) {
 		this.fechaHora = fechaHora;
 		this.servicio = servicio;
 		this.cliente = cliente;
 		this.estado = EstadoCita.NO_CONFIRMADA; 
 	}
 	//getters and setters
-	public Integer getFechaHora() {
+	public LocalDateTime getFechaHora() {
 		return fechaHora;
 	}
-	public void setFechaHora(Integer fechaHora) {
+	public void setFechaHora(LocalDateTime fechaHora) {
 		this.fechaHora = fechaHora;
 	}
 	

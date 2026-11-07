@@ -2,10 +2,16 @@ package Logica;
 //	Aportes de Keishiro, considerando que las horas de horario de
 //se mantengan como localdate
 
+import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
-public class Horario {
+public class Horario implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private DayOfWeek dia;
 	private LocalTime horaInicio;
 	private LocalTime horaFin;
