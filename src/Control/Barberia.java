@@ -29,7 +29,6 @@ public class Barberia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private final static String dataFileName = "DataBarberia.dat";
-    // private static Integer clientId;  // Tal vez? Al añadir cliente, ++
 
     private static Barberia instance;
     private Map<DayOfWeek, Horario> horarios;
@@ -73,8 +72,8 @@ public class Barberia implements Serializable {
         file.close();
     }
 
-    public Cliente crearCliente(String id, String nombre, String tel, String email) throws Exception {
-        // Especificar ID? No deberia ser automatico?
+    public Cliente crearCliente(String nombre, String tel, String email) throws Exception {
+        String id = Integer.toString(this.clientes.size() + 1);
         if (this.clientes.containsKey(id)){
             throw new Exception("ID de cliente ya existente.");
         }
@@ -90,7 +89,6 @@ public class Barberia implements Serializable {
     }
     public void modificarCliente(String id, String nombre, String telefono, String email) throws Exception {
         Cliente c = this.consultarCliente(id);
-        // NO se cambia la id. Deberiamos?
         c.setNombre(nombre);
         c.setEmail(email);
         c.setTelefono(telefono);
@@ -155,7 +153,6 @@ public class Barberia implements Serializable {
         Cliente c = this.consultarCliente(idCliente);
         Cita cita = new Cita(fechaHora, servicio, c );
         this.citas.put(fechaHora, cita);
-        c.agregarCita(cita);  // esta haciendo un objeto diferente. Override Equals o operator= para comparar fechaHora en vez?
         return cita;
     }
     public Cita consultarCita(LocalDateTime fechaHora) throws Exception {
@@ -166,7 +163,6 @@ public class Barberia implements Serializable {
     }
     public boolean modificarCita(LocalDateTime oldFechaHora, LocalDateTime fechaHora, Servicio servicio) throws Exception {
         // CAMBIADO: Añadido parametro LocalDateTime oldFechaHora.
-        // No cambiamos Estado?
         if (!this.enHorarioDeAtencion(fechaHora)) {
             throw new Exception("Hora o fecha no disponible.");
         }
@@ -296,14 +292,7 @@ public class Barberia implements Serializable {
         return false;
     }
     
-    public boolean borrarClienteListaEspera(String idCliente) throws Exception {
-        // El metodo no tiene sentido. Un queue no puede elegir el cliente a quitar.
-
-//        Cliente c = this.consultarCliente(idCliente);
-//        if (!this.espera.contains(c)){
-//            this.espera.add(c);
-//            return true;
-//        }
+    public boolean borrarClienteListaEspera() throws Exception {
         if (this.espera.isEmpty()) {
             return false;
         }

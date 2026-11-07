@@ -18,7 +18,6 @@ public class Cliente implements Serializable {
 	private String nombre;
 	private String telefono;
 	private String email;
-	private List<Cita> citas;
 		
 	//Constructor.
 	public Cliente(String idCliente, String nombre, String telefono, String email) throws Exception {
@@ -32,7 +31,6 @@ public class Cliente implements Serializable {
 		this.nombre = nombre;
 		this.telefono = telefono;
 		this.email = email;
-		this.citas = new ArrayList<Cita>();
 	}
 		
 	//Verificación (Aportes de Keishiro).
@@ -80,21 +78,6 @@ public class Cliente implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-		
-	public void agregarCita(Cita cita){
-		 citas.add(cita);
-	 }
-		
-		//ToString y borrar cita son aportes de Keishiro.
-	public void borrarCita(LocalDateTime fechaHora) throws Exception{
-		 for (Cita c : this.citas) {
-			 if (c.getFechaHora().equals(fechaHora)) {
-				 this.citas.remove(c);
-				 return;
-			 }
-		}
-		throw new Exception("No se enontró la cita");
-	 }
 	
 	 @Override
 	 public String toString(){
