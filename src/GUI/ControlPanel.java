@@ -1,6 +1,9 @@
 package GUI;
 
 import java.awt.EventQueue;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import Control.Barberia;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -16,6 +19,9 @@ public class ControlPanel extends JFrame {
 	private JPanel contentsPanel;
 
 	private ClientsPanel clientsPanel;
+	private CitasPanel citasPanel;
+	private EsperaPanel esperaPanel;
+	private AdminPanel adminPanel;
 
 	/**
 	 * Launch the application.
@@ -24,10 +30,12 @@ public class ControlPanel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					Barberia.getInstance().cargarDatosDisco();
 					ControlPanel frame = new ControlPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "No se pudo iniciar la aplicacion: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -37,8 +45,22 @@ public class ControlPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public ControlPanel() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e){
+				try{
+					Barberia.getInstance().guardarDatosDisco();
+					dispose();
+				}
+				catch (Exception exc){
+					JOptionPane.showMessageDialog(ControlPanel.this, "No se pudieron guardar los datos: " + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+		setBounds(100, 100, 1100, 650);
+		setMinimumSize(new java.awt.Dimension(1050, 550));
+		setTitle("Barberia");
 		MainPanel = new JPanel();
 		MainPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(MainPanel);
@@ -50,34 +72,42 @@ public class ControlPanel extends JFrame {
 
 		MainPanel.add(this.contentsPanel, BorderLayout.CENTER);
 
-		/// EJEMPLO: Hacer lo mismo con otros XPanel()
 		this.clientsPanel = new ClientsPanel();
+		this.citasPanel = new CitasPanel();
+		this.esperaPanel = new EsperaPanel();
+		this.adminPanel = new AdminPanel();
 		this.contentsPanel.add(clientsPanel, "CLIENTES");
+		this.contentsPanel.add(citasPanel, "CITAS");
+		this.contentsPanel.add(esperaPanel, "ESPERA");
+		this.contentsPanel.add(adminPanel, "ADMIN");
 		this.showContent(this.clientsPanel, "CLIENTES");
-		/// FIN EJEMPLO
 
 		JPanel SidebarPanel = new JPanel();
 		MainPanel.add(SidebarPanel, BorderLayout.WEST);
 		SidebarPanel.setLayout(new BoxLayout(SidebarPanel, BoxLayout.Y_AXIS));
 
-		/// EJEMPLO: Ver contenidos the ClientsPanel para dar una idea
 		JButton ClientesButton = new JButton("Clientes");
 		ClientesButton.addActionListener(e -> {
 			this.showContent(this.clientsPanel, "CLIENTES");
 		});
 		SidebarPanel.add(ClientesButton);
-		/// FIN EJEMPLO
 
 		JButton CitasButton = new JButton("Citas");
-		// conectar evento
+		CitasButton.addActionListener(e -> {
+			this.showContent(this.citasPanel, "CITAS");
+		});
 		SidebarPanel.add(CitasButton);
 
 		JButton ListaEsperaButton = new JButton("Espera");
-		// conectar evento
+		ListaEsperaButton.addActionListener(e -> {
+			this.showContent(this.esperaPanel, "ESPERA");
+		});
 		SidebarPanel.add(ListaEsperaButton);
 
 		JButton AdminButton = new JButton("Admin");
-		// conectar evento
+		AdminButton.addActionListener(e -> {
+			this.showContent(this.adminPanel, "ADMIN");
+		});
 		SidebarPanel.add(AdminButton);
 	}
 
