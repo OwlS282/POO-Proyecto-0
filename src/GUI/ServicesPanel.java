@@ -66,13 +66,13 @@ public class ServicesPanel extends ContentPanel {
 
     private void connectButtonsActionEvents(){
         this.CrearServicioButton.addActionListener(e -> {
-            new ServicioDialog(this.getRoot(), null).setVisible(true);
+            new ServicioDialog(this.getRootFrame(), null).setVisible(true);
             this.onDisplay();
         });
         this.ModificarServicioButton.addActionListener(e -> {
             try{
                 Servicio s = Barberia.getInstance().consultarServicio(this.getSelectedServicio());
-                new ServicioDialog(this.getRoot(), s).setVisible(true);
+                new ServicioDialog(this.getRootFrame(), s).setVisible(true);
                 this.onDisplay();
             }
             catch (Exception exc){ showBasicError(exc); }

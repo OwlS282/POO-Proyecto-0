@@ -11,6 +11,7 @@ public class CreateClientDialog extends ContentDialog {
 
     public CreateClientDialog(JFrame parent){
         super(parent, "Crear Cliente", true);
+        this.initializeDialog();
     }
 
     @Override

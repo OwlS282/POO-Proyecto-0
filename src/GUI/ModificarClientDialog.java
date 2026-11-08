@@ -12,8 +12,9 @@ public class ModificarClientDialog extends ContentDialog {
     private Cliente cliente;
 
     public ModificarClientDialog(JFrame parent, Cliente cliente){
-        this.cliente = cliente;
         super(parent, "Modificar Cliente", true);
+        this.cliente = cliente;
+        this.initializeDialog();
     }
 
     @Override
@@ -31,6 +32,12 @@ public class ModificarClientDialog extends ContentDialog {
         this.Contents.add(new JLabel("Email: "));
         this.Contents.add(this.EmailField);
         this.Contents.add(Box.createVerticalStrut(10));
+
+        if (this.cliente != null){
+            this.NombreField.setText(this.cliente.getNombre());
+            this.TelefonoField.setText(this.cliente.getTelefono());
+            this.EmailField.setText(this.cliente.getEmail());
+        }
     }
 
     @Override

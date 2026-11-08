@@ -7,8 +7,9 @@ public class ConsultarClientDialog extends ContentDialog {
     private final Cliente c;
 
     public ConsultarClientDialog(JFrame parent, Cliente c){
-        this.c = c;
         super(parent, "Consulta de Cliente", false);
+        this.c = c;
+        this.initializeDialog();
     }
 
     @Override

@@ -48,7 +48,7 @@ public class EsperaPanel extends ContentPanel {
 
     private void connectButtonsActionEvents(){
         this.AgregarClienteButton.addActionListener(e -> {
-            new AgregarEsperaDialog(this.getRoot()).setVisible(true);
+            new AgregarEsperaDialog(this.getRootFrame()).setVisible(true);
             this.onDisplay();
         });
         this.RetirarPrimeroButton.addActionListener(e -> {

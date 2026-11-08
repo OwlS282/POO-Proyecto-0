@@ -7,9 +7,11 @@ public abstract class ContentDialog extends JDialog {
     protected final JPanel MainPanel;
     protected final JPanel Contents;
     protected JButton ConfirmarButton;
+    private final JFrame parentFrame;
 
     public ContentDialog(JFrame parent, String title, boolean confirmButton){
         super(parent, title, true);  // modal; blocks others executions until closed
+        this.parentFrame = parent;
 
         this.MainPanel = new JPanel();
         this.MainPanel.setLayout(new BoxLayout(this.MainPanel, BoxLayout.Y_AXIS));
@@ -28,11 +30,14 @@ public abstract class ContentDialog extends JDialog {
         }
 
         this.setContentPane(this.MainPanel);
+    }
 
+    protected final void initializeDialog(){
         this.initialize();
         this.pack();
-        this.setLocationRelativeTo(parent);
+        this.setLocationRelativeTo(this.parentFrame);
     }
+
     protected void showErrorMessage(String title, Exception exc){
         JOptionPane.showMessageDialog(this, exc.getMessage(), title, JOptionPane.ERROR_MESSAGE);
     }

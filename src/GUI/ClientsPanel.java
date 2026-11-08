@@ -87,7 +87,7 @@ public class ClientsPanel extends ContentPanel {
     private void connectButtonsActionEvents(){
         this.CrearClienteButton.addActionListener(e -> {
             try{
-                ContentDialog dialog = new CreateClientDialog(this.root);
+                ContentDialog dialog = new CreateClientDialog(this.getRootFrame());
                 dialog.setVisible(true);
                 this.onDisplay();
             }
@@ -109,7 +109,7 @@ public class ClientsPanel extends ContentPanel {
 
         this.ModicarClienteButton.addActionListener(e -> {
             try{
-                ContentDialog dialog = new ModificarClientDialog(this.root, Barberia.getInstance().consultarCliente(this.getSelectedClientId()));
+                ContentDialog dialog = new ModificarClientDialog(this.getRootFrame(), Barberia.getInstance().consultarCliente(this.getSelectedClientId()));
                 dialog.setVisible(true);
                 this.onDisplay();
             }
@@ -120,7 +120,7 @@ public class ClientsPanel extends ContentPanel {
 
         this.ConsultarClienteButton.addActionListener(e -> {
             try{
-                ContentDialog dialog = new ConsultarClientDialog(this.root, Barberia.getInstance().consultarCliente(this.getSelectedClientId()));
+                ContentDialog dialog = new ConsultarClientDialog(this.getRootFrame(), Barberia.getInstance().consultarCliente(this.getSelectedClientId()));
                 dialog.setVisible(true);
                 this.onDisplay();
             }
