@@ -10,6 +10,9 @@ import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
 public class ControlPanel extends JFrame {
 
@@ -45,6 +48,7 @@ public class ControlPanel extends JFrame {
 	 * Create the frame.
 	 */
 	public ControlPanel() {
+		setBackground(new Color(0, 0, 64));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		this.addWindowListener(new WindowAdapter() {
 			@Override
@@ -73,6 +77,8 @@ public class ControlPanel extends JFrame {
 		MainPanel.add(this.contentsPanel, BorderLayout.CENTER);
 
 		this.clientsPanel = new ClientsPanel();
+		clientsPanel.setBackground(new Color(159, 32, 32));
+		clientsPanel.setForeground(new Color(159, 32, 32));
 		this.citasPanel = new CitasPanel();
 		this.esperaPanel = new EsperaPanel();
 		this.adminPanel = new AdminPanel();
@@ -87,27 +93,44 @@ public class ControlPanel extends JFrame {
 		SidebarPanel.setLayout(new BoxLayout(SidebarPanel, BoxLayout.Y_AXIS));
 
 		JButton ClientesButton = new JButton("Clientes");
+		ClientesButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 16));
+		ClientesButton.setForeground(new Color(255, 255, 255));
+		ClientesButton.setBackground(new Color(159, 32, 32));
 		ClientesButton.addActionListener(e -> {
 			this.showContent(this.clientsPanel, "CLIENTES");
 		});
+		ClientesButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 		SidebarPanel.add(ClientesButton);
+		
 
 		JButton CitasButton = new JButton("Citas");
+		CitasButton.setForeground(new Color(255, 255, 255));
+		CitasButton.setBackground(new Color(34, 145, 255));
+		CitasButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 16));
 		CitasButton.addActionListener(e -> {
 			this.showContent(this.citasPanel, "CITAS");
 		});
+		CitasButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 		SidebarPanel.add(CitasButton);
 
 		JButton ListaEsperaButton = new JButton("Espera");
+		ListaEsperaButton.setForeground(new Color(255, 255, 255));
+		ListaEsperaButton.setBackground(new Color(159, 32, 32));
+		ListaEsperaButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 16));
 		ListaEsperaButton.addActionListener(e -> {
 			this.showContent(this.esperaPanel, "ESPERA");
 		});
+		ListaEsperaButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 		SidebarPanel.add(ListaEsperaButton);
 
 		JButton AdminButton = new JButton("Admin");
+		AdminButton.setForeground(new Color(255, 255, 255));
+		AdminButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 16));
+		AdminButton.setBackground(new Color(34, 145, 255));
 		AdminButton.addActionListener(e -> {
 			this.showContent(this.adminPanel, "ADMIN");
 		});
+		AdminButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
 		SidebarPanel.add(AdminButton);
 	}
 
