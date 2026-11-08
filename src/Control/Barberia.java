@@ -60,6 +60,10 @@ public class Barberia implements Serializable {
     }
 
     public void cargarDatosDisco() throws IOException, ClassNotFoundException {
+        File dataFile = new File(dataFileName);
+        if (!dataFile.exists()) {
+            return;
+        }
         FileInputStream file = new FileInputStream(dataFileName);
         ObjectInputStream stream = new ObjectInputStream(file);
         instance = (Barberia)stream.readObject();
@@ -301,6 +305,18 @@ public class Barberia implements Serializable {
         }
         this.espera.remove();
         return true;
+    }
+
+    public boolean borrarClienteListaEspera(String idCliente) throws Exception {
+        Iterator<Cliente> it = this.espera.iterator();
+        while (it.hasNext()) {
+            Cliente c = it.next();
+            if (c.getIdCliente().equals(idCliente)) {
+                it.remove();
+                return true;
+            }
+        }
+        return false;
     }
     
     public Queue<Cliente> getListaEspera(){
