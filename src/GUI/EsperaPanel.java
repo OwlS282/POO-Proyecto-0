@@ -28,6 +28,8 @@ import Logica.Cliente;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 
 public class EsperaPanel extends ContentPanel {
     private JTable EsperaTable;
@@ -39,9 +41,17 @@ public class EsperaPanel extends ContentPanel {
     public EsperaPanel(){
         this.setLayout(new BorderLayout(0, 0));
         JPanel TopButtonsPanel = new JPanel();
+        TopButtonsPanel.setBackground(new Color(0, 0, 64));
         this.AgregarClienteButton = new JButton("Agregar Cliente");
+        AgregarClienteButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+        AgregarClienteButton.setForeground(new Color(159, 32, 32));
+        AgregarClienteButton.setBackground(new Color(255, 255, 255));
         this.RetirarPrimeroButton = new JButton("Retirar Primero");
+        RetirarPrimeroButton.setForeground(new Color(159, 32, 32));
+        RetirarPrimeroButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
         this.RetirarSeleccionadoButton = new JButton("Retirar Seleccionado");
+        RetirarSeleccionadoButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+        RetirarSeleccionadoButton.setForeground(new Color(159, 32, 32));
         this.RetirarPrimeroButton.setEnabled(false);
         this.RetirarSeleccionadoButton.setEnabled(false);
         TopButtonsPanel.add(this.AgregarClienteButton);

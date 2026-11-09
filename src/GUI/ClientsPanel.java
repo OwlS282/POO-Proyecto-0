@@ -30,6 +30,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Font;
 
 public class ClientsPanel extends ContentPanel {
     private JPanel TopButtonsPanel;
@@ -46,15 +48,24 @@ public class ClientsPanel extends ContentPanel {
         this.setLayout(new BorderLayout(0, 0));
 
         this.TopButtonsPanel = new JPanel();
+        TopButtonsPanel.setBackground(new Color(0, 0, 64));
         this.add(this.TopButtonsPanel, BorderLayout.NORTH);
 
         this.CrearClienteButton = new JButton("Crear Cliente");
+        CrearClienteButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 12));
+        CrearClienteButton.setForeground(new Color(159, 32, 32));
         this.ModicarClienteButton = new JButton("Modificar Cliente");
+        ModicarClienteButton.setForeground(new Color(159, 32, 32));
+        ModicarClienteButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 12));
         this.ModicarClienteButton.setEnabled(false);
         this.BorrarClienteButton = new JButton("Borrar Cliente");
+        BorrarClienteButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 12));
+        BorrarClienteButton.setForeground(new Color(159, 32, 32));
         this.BorrarClienteButton.setEnabled(false);
         this.ConsultarClienteButton = new JButton("Consultar Cliente");
         this.ConsultarClienteButton.setEnabled(false);
+        ConsultarClienteButton.setFont(new Font("Consolas", Font.BOLD | Font.ITALIC, 12));
+        ConsultarClienteButton.setForeground(new Color(64, 0, 0));
 
         this.TopButtonsPanel.add(this.CrearClienteButton);
         this.TopButtonsPanel.add(this.ModicarClienteButton);

@@ -30,6 +30,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.awt.Color;
+import java.awt.Font;
 
 public class ServicesPanel extends ContentPanel {
     private JTable ServiciosTable;
@@ -42,11 +44,21 @@ public class ServicesPanel extends ContentPanel {
     public ServicesPanel(){
         this.setLayout(new BorderLayout(0, 0));
         JPanel TopButtonsPanel = new JPanel();
+        TopButtonsPanel.setBackground(new Color(0, 0, 64));
         this.add(TopButtonsPanel, BorderLayout.NORTH);
         this.CrearServicioButton = new JButton("Crear Servicio");
+        CrearServicioButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+        CrearServicioButton.setForeground(new Color(159, 32, 32));
         this.ModificarServicioButton = new JButton("Modificar Servicio");
+        ModificarServicioButton.setForeground(new Color(159, 32, 32));
+        ModificarServicioButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
         this.BorrarServicioButton = new JButton("Borrar Servicio");
+        BorrarServicioButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+        BorrarServicioButton.setForeground(new Color(159, 32, 32));
         this.ConsultarServicioButton = new JButton("Consultar Servicio");
+        ConsultarServicioButton.setFont(new Font("Times New Roman", Font.BOLD | Font.ITALIC, 13));
+        ConsultarServicioButton.setForeground(new Color(159, 32, 32));
+        
         TopButtonsPanel.add(this.CrearServicioButton);
         TopButtonsPanel.add(this.ModificarServicioButton);
         TopButtonsPanel.add(this.BorrarServicioButton);
