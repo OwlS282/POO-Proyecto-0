@@ -1,3 +1,26 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: EsperaPanel
+	Sección de la lista de espera. Muestra los clientes en orden de llegada con
+	su posición, y permite agregar un cliente al final, retirar al primero o
+	retirar uno seleccionado.
+*/
+
 package GUI;
 
 import Control.Barberia;
@@ -48,7 +71,7 @@ public class EsperaPanel extends ContentPanel {
 
     private void connectButtonsActionEvents(){
         this.AgregarClienteButton.addActionListener(e -> {
-            new AgregarEsperaDialog(this.getRoot()).setVisible(true);
+            new AgregarEsperaDialog(this.getRootFrame()).setVisible(true);
             this.onDisplay();
         });
         this.RetirarPrimeroButton.addActionListener(e -> {

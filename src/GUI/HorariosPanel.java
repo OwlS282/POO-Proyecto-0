@@ -1,6 +1,30 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: HorariosPanel
+	Pestaña del horario de atención. Permite elegir un día de la semana y
+	establecer su hora de inicio y de fin. También incluye una consulta para
+	comprobar si una fecha y hora están dentro del horario de atención.
+*/
+
 package GUI;
 
 import Control.Barberia;
+import Logica.Horario;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +40,7 @@ public class HorariosPanel extends ContentPanel {
     private JTextField HoraConsultaField;
     private JButton GuardarHorarioButton;
     private JButton ConsultarHorarioButton;
+    private JLabel HorarioActualLabel;
 
     public HorariosPanel(){
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -43,6 +68,8 @@ public class HorariosPanel extends ContentPanel {
         ConfiguracionPanel.add(this.HoraFinField);
         ConfiguracionPanel.add(this.GuardarHorarioButton);
         this.add(ConfiguracionPanel);
+        this.HorarioActualLabel = new JLabel(" ");
+        this.add(this.HorarioActualLabel);
         this.add(new JLabel("Guardar reemplaza el horario de ese dia. Los campos son una propuesta, no el horario guardado."));
 
         this.FechaConsultaField = new JTextField(LocalDate.now().toString(), 10);
@@ -56,12 +83,29 @@ public class HorariosPanel extends ContentPanel {
         ConsultaPanel.add(this.ConsultarHorarioButton);
         this.add(ConsultaPanel);
         this.add(new JLabel("Esta consulta comprueba el horario; no indica si ya existe una cita a esa hora."));
+        this.DiaComboBox.addActionListener(e -> this.cargarHorarioDelDia());
         this.connectButtonsActionEvents();
+        
+        this.HorarioActualLabel = new JLabel(" ");
+        this.add(this.HorarioActualLabel);
     }
 
     @Override
     public void onDisplay(){
-        // Los horarios guardados no tienen un getter en la capa de control.
+        this.cargarHorarioDelDia();
+    }
+
+    private void cargarHorarioDelDia(){
+        DayOfWeek dia = (DayOfWeek) this.DiaComboBox.getSelectedItem();
+        Horario h = Barberia.getInstance().getHorario(dia);
+        if (h == null){
+            this.HorarioActualLabel.setText("Este dia no tiene horario de atencion guardado.");
+        }
+        else {
+            this.HoraInicioField.setText(h.getHoraInicio().toString());
+            this.HoraFinField.setText(h.getHoraFin().toString());
+            this.HorarioActualLabel.setText("Horario guardado: " + h.getHoraInicio() + " a " + h.getHoraFin());
+        }
     }
 
     private void connectButtonsActionEvents(){
@@ -76,6 +120,7 @@ public class HorariosPanel extends ContentPanel {
                 int respuesta = JOptionPane.showConfirmDialog(this, "¿Establecer este horario para el dia seleccionado?", "Guardar Horario", JOptionPane.YES_NO_OPTION);
                 if (respuesta != JOptionPane.YES_OPTION){ return; }
                 Barberia.getInstance().establecerHorario(dia, inicio, fin);
+                this.cargarHorarioDelDia();
                 JOptionPane.showMessageDialog(this, "Horario establecido.");
             }
             catch (DateTimeParseException exc){ showBasicError(new Exception("Ingrese horas validas con formato HH:mm.")); }

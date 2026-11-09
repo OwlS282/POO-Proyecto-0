@@ -1,3 +1,27 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: ControlPanel
+	Ventana principal de la aplicación y punto de inicio del programa (main).
+	Carga los datos guardados al arrancar, muestra un menú lateral para cambiar
+	entre las secciones (Clientes, Citas, Espera y Admin) y guarda los datos en
+	disco al cerrar la ventana.
+*/
+
 package GUI;
 
 import java.awt.EventQueue;
@@ -31,6 +55,8 @@ public class ControlPanel extends JFrame {
 			public void run() {
 				try {
 					Barberia.getInstance().cargarDatosDisco();
+					//eliminar anomalias citas defectuosas
+					//Barberia.getInstance().repararCitas();
 					ControlPanel frame = new ControlPanel();
 					frame.setVisible(true);
 				} catch (Exception e) {

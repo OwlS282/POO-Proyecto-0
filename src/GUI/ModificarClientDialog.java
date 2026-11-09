@@ -1,3 +1,27 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: ModificarClientDialog
+	Diálogo para editar los datos de un cliente existente. Muestra sus datos
+	actuales en los campos y, al confirmar, los envía a Barberia. Si los datos
+	no son válidos, muestra el error y no cierra el diálogo.
+*/
+
+
 package GUI;
 
 import javax.swing.*;
@@ -12,8 +36,9 @@ public class ModificarClientDialog extends ContentDialog {
     private Cliente cliente;
 
     public ModificarClientDialog(JFrame parent, Cliente cliente){
-        this.cliente = cliente;
         super(parent, "Modificar Cliente", true);
+        this.cliente = cliente;
+        this.initializeDialog();
     }
 
     @Override
@@ -31,6 +56,12 @@ public class ModificarClientDialog extends ContentDialog {
         this.Contents.add(new JLabel("Email: "));
         this.Contents.add(this.EmailField);
         this.Contents.add(Box.createVerticalStrut(10));
+
+        if (this.cliente != null){
+            this.NombreField.setText(this.cliente.getNombre());
+            this.TelefonoField.setText(this.cliente.getTelefono());
+            this.EmailField.setText(this.cliente.getEmail());
+        }
     }
 
     @Override

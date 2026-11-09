@@ -1,17 +1,35 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: Cliente
+	Representa a una persona registrada en la barbería. Guarda su identificador,
+	nombre, teléfono y correo electrónico. Valida que el correo y el teléfono
+	tengan un formato válido antes de aceptar los datos. Es la clase a la que
+	apuntan las citas y la lista de espera.
+*/
+
 package Logica;
 	
-import java.util.List;
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 	
 	
 public class Cliente implements Serializable {
-		/**
-		 * 
-		 */
 	private static final long serialVersionUID = 1L;
 	
 	private String idCliente;
@@ -21,11 +39,14 @@ public class Cliente implements Serializable {
 		
 	//Constructor.
 	public Cliente(String idCliente, String nombre, String telefono, String email) throws Exception {
+		if (nombre == null || nombre.trim().isEmpty()){
+		    throw new Exception("Error, El nombre no puede estar vacio.");
+		}
 		if (!validarEmail(email)){
-		     throw new Exception("Email invalido.");
+		     throw new Exception("Error, Email invalido.");
 		 }
 		if (!validarTelefono(telefono)){
-		     throw new Exception("Telefono invalido.");
+		     throw new Exception("Error, Telefono invalido.");
 		 }
 		this.idCliente = idCliente;
 		this.nombre = nombre;
@@ -61,24 +82,38 @@ public class Cliente implements Serializable {
 		return nombre;
 	}
 	
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setNombre(String nombre) throws Exception {
+	    if (nombre == null || nombre.trim().isEmpty()){
+	        throw new Exception("El nombre no puede estar vacio.");
+	    }
+	    this.nombre = nombre;
 	}
 	
 	public String getTelefono() {
 		return telefono;
 	}
 	
-	public void setTelefono(String telefono) {
-		this.telefono = telefono;
+	public void setTelefono(String telefono) throws Exception {
+	    if (telefono == null || telefono.trim().isEmpty()){
+	        throw new Exception("El telefono no puede estar vacio.");
+	    }
+	    if (!validarTelefono(telefono)){
+	        throw new Exception("Telefono invalido. Use el formato 8888-8888.");
+	    }
+	    this.telefono = telefono;
 	}
-	
 	public String getEmail() {
 		return email;
 	}
 	
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String email) throws Exception {
+	    if (email == null || email.trim().isEmpty()){
+	        throw new Exception("El email no puede estar vacio.");
+	    }
+	    if (!validarEmail(email)){
+	        throw new Exception("Email invalido. Debe ser como nombre@dominio.com.");
+	    }
+	    this.email = email;
 	}
 	
 	 @Override

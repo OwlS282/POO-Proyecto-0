@@ -1,3 +1,26 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: ServicesPanel
+	Pestaña de tipos de servicio. Muestra una tabla con los servicios existentes
+	y los botones para crear, modificar, borrar y consultar. Al consultar
+	indica si el servicio está siendo utilizado en alguna cita.
+*/
+
 package GUI;
 
 import Control.Barberia;
@@ -66,13 +89,13 @@ public class ServicesPanel extends ContentPanel {
 
     private void connectButtonsActionEvents(){
         this.CrearServicioButton.addActionListener(e -> {
-            new ServicioDialog(this.getRoot(), null).setVisible(true);
+            new ServicioDialog(this.getRootFrame(), null).setVisible(true);
             this.onDisplay();
         });
         this.ModificarServicioButton.addActionListener(e -> {
             try{
                 Servicio s = Barberia.getInstance().consultarServicio(this.getSelectedServicio());
-                new ServicioDialog(this.getRoot(), s).setVisible(true);
+                new ServicioDialog(this.getRootFrame(), s).setVisible(true);
                 this.onDisplay();
             }
             catch (Exception exc){ showBasicError(exc); }

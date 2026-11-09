@@ -1,3 +1,27 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: Horario
+	Representa el horario de atención de un día de la semana: el día, la hora de
+	inicio y la hora de fin. Valida que la hora de fin no sea anterior a la de
+	inicio y permite consultar si una hora dada cae dentro del horario.
+*/
+
+
 package Logica;
 //	Aportes de Keishiro, considerando que las horas de horario de
 //se mantengan como localdate
@@ -7,9 +31,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 
 public class Horario implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	
 	private DayOfWeek dia;

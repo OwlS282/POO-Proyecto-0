@@ -1,13 +1,31 @@
+/*
+Instituto Tecnologico de Costa Rica
+
+Integrantes:	Owel Jafet Gutiérrez Ortiz,		2026800869
+				Miranda Jiménez Alvarado,		2026008616
+				Keishiro Gabriel Cubero Abe,	2026091245
+				Eduardo Alfonso Moreno Pérez,	2025080891
+
+Profesor : Mauricio Aviles Cisneros
+
+Semana 15 : Proyecto 0 - Sistema de Barberia
+
+Fecha de entrega : 09 / 11 / 2026
+
+*/
+
+/*
+Clase: Cita
+	Representa un espacio reservado en la agenda. Relaciona un cliente con un
+	servicio en una fecha y hora específicas, y guarda su estado
+	(confirmada o no confirmada). Toda cita nueva inicia como no confirmada.
+*/
 package Logica;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Cita implements Serializable {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	private LocalDateTime fechaHora;
