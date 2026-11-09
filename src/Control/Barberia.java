@@ -173,8 +173,8 @@ public class Barberia implements Serializable {
         if (!this.enHorarioDeAtencion(fechaHora)) {
             throw new Exception("Hora o fecha no disponible.");
         }
-        Cita cita = this.consultarCita(fechaHora);
-        this.citas.remove(fechaHora);
+        Cita cita = this.consultarCita(oldFechaHora);
+        this.citas.remove(oldFechaHora);
 
         cita.setServicio(servicio);
         cita.setFechaHora(fechaHora);
